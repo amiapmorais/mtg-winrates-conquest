@@ -1,4 +1,10 @@
-const API = 'https://api2.moxfield.com/v2/decks/all/';
+
+const API = 'https://api2.moxfield.com/v2/decks/';
+// List of endpoints
+const allDecks = 'all/';
+const search = 'search'
+
+const  jkfj = 'https://api2.moxfield.com/v2/decks/search?showIllegal=true&authorUserNames=amiaram&pageNumber=1&pageSize=12&sortType=updated&sortDirection=descending&board=mainboard';
 
 // Master sheet columns 
 const ID = 1;
@@ -34,7 +40,8 @@ function importCards(){
     lastDeckId = deckData[0];
     const moxfieldId = deckData[MOXFIELD_ID - 1];
     if(moxfieldId) {
-     const deck = fetchMoxfieldDeck(moxfieldId);
+      const deck = fetchMoxfieldDeck(moxfieldId);
+      if (!deck) continue;
       const commanders = deck.commanders;
       for (const value of Object.values(commanders)) {
         saveCard(moxfieldId, lastDeckId, value.card);
@@ -57,14 +64,26 @@ function getLastDeckId(){
   return sheet.getRange(lastRow, lastColunm).getValue();
 }
 
-function fetchMoxfieldDeck(moxfieldId) {
-  const url = API + moxfieldId
-  var options = {
+function getUrl(url) {
+  let options = {
     'method': 'get',
     'contentType': 'application/json',
+    'muteHttpExceptions': true,
   };
-  var response = UrlFetchApp.fetch(url, options);
+  let response = UrlFetchApp.fetch(url, options);
+  if (response.getResponseCode() !== 200) return false;
+
   return JSON.parse(response.getContentText());
+}
+
+function fetchMoxfieldDeck(moxfieldId) {
+  const url = API + allDecks + moxfieldId;
+  return getUrl(url);
+}
+
+function fetchUserDecks(user) {
+  const url = API + search + `?showIllegal=true&authorUserNames=${user}&pageNumber=1&pageSize=12&sortType=updated&sortDirection=descending&board=mainboard`;
+  return getUrl(url);
 }
 
 function saveCard(moxfieldId, deckId, card) {
