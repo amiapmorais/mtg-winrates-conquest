@@ -4,8 +4,6 @@ const API = 'https://api2.moxfield.com/v2/decks/';
 const allDecks = 'all/';
 const search = 'search'
 
-const  jkfj = 'https://api2.moxfield.com/v2/decks/search?showIllegal=true&authorUserNames=amiaram&pageNumber=1&pageSize=12&sortType=updated&sortDirection=descending&board=mainboard';
-
 // Master sheet columns 
 const ID = 1;
 const MOXFIELD_ID = 14;
