@@ -79,8 +79,8 @@ function fetchMoxfieldDeck(moxfieldId) {
   return getUrl(url);
 }
 
-function fetchUserDecks(user) {
-  const url = API + search + `?showIllegal=true&authorUserNames=${user}&pageNumber=1&pageSize=12&sortType=updated&sortDirection=descending&board=mainboard`;
+function fetchPlayerDecks(player) {
+  const url = API + search + `?showIllegal=true&authorUserNames=${player}&pageNumber=1&pageSize=12&sortType=updated&sortDirection=descending&board=mainboard`;
   return getUrl(url);
 }
 

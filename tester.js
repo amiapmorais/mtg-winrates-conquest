@@ -1,7 +1,7 @@
 function testFetchInvalidDeck() {
     const invalidId = 'WHTnMxR_Mk2F8PBXSLVrQw';
     const deckIds = [invalidId];
-    const decks  = fetchUserDecks('amiaram').data;
+    const decks  = fetchPlayerDecks('amiaram').data;
     decks.forEach((deck) =>{
       deckIds.push(deck.publicId);
     });
